@@ -12,6 +12,11 @@
     <groupId>fr.sle</groupId>
     <artifactId>spring-boot-test-howto-business</artifactId>
 
+    <properties>
+        <!-- default profile value -->
+        <spring.profiles.active>local</spring.profiles.active>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -36,5 +41,24 @@
             <version>9.4.1212.jre7</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+    </build>
 
 </project>
