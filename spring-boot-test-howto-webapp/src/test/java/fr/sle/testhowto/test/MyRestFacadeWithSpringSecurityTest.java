@@ -34,6 +34,7 @@ public class MyRestFacadeWithSpringSecurityTest {
     }
 
     @Test
+    @WithMockBasicAuth(principal = "user", roles = "ROLE_USER")
     public void getAStringTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(MyRestFacade.ROOT_RESOURCE))
                 .andExpect(MockMvcResultMatchers.status().isOk());
