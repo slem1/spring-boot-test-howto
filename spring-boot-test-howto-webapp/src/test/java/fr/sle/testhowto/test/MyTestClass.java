@@ -9,12 +9,11 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author slemoine
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest()
 public class MyTestClass {
 
     @Test
-    public void aTestShouldAssertSomething(){
-
+    public void aTestShouldAssertSomething() {
     }
 
 }
