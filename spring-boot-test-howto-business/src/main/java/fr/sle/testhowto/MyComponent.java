@@ -9,4 +9,8 @@ import org.springframework.stereotype.Component;
 public class MyComponent {
 
     public void print(){}
+
+    public String giveMeAValue(){
+        return "foo";
+    }
 }

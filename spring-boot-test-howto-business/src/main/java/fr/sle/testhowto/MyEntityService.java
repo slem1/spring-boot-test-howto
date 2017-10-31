@@ -1,19 +1,14 @@
 package fr.sle.testhowto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
-import org.springframework.ws.client.core.WebServiceMessageExtractor;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.SoapHeader;
 import org.springframework.ws.soap.SoapMessage;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,14 +19,18 @@ import java.util.Map;
 @Transactional
 public class MyEntityService {
 
-    @Autowired
-    private MyEntityJpaRepository myEntityJpaRepository;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final MyEntityJpaRepository myEntityJpaRepository;
 
-    @Autowired
-    private WebServiceTemplate webServiceTemplate;
+    private final RestTemplate restTemplate;
+
+    private final WebServiceTemplate webServiceTemplate;
+
+    public MyEntityService(MyEntityJpaRepository myEntityJpaRepository, RestTemplate restTemplate, WebServiceTemplate webServiceTemplate) {
+        this.myEntityJpaRepository = myEntityJpaRepository;
+        this.restTemplate = restTemplate;
+        this.webServiceTemplate = webServiceTemplate;
+    }
 
     public void createnewMyEntity() {
         myEntityJpaRepository.save(new MyEntity());
@@ -41,12 +40,12 @@ public class MyEntityService {
         return myEntityJpaRepository.findAll();
     }
 
-    public Map<String,String> getExternalData(){
+    public Map<String, String> getExternalData() {
         return restTemplate.getForObject("http://mythirdpartyhost/rest/api/data", Map.class);
     }
 
 
-    public void callASoapWebService(){
+    public void callASoapWebService() {
 
         WebServiceMessageCallback requestCallback = message -> {
 
